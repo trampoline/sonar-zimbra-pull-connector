@@ -12,6 +12,11 @@ module Zimbra
       resultset.fetch_fields.map{ |f| f.name }
     end
     
+    def array_to_in_clause( array )
+      array.map{ |m| "'#{m.gsub(/\\/, '\&\&').gsub(/'/, "''")}'" }.join(',')
+    end
+    
+    
     # take a raw mysql resultset and make it into an array of hashes so we can do things like
     # results[12]['id']
     def nicefy_resultset( resultset )
@@ -22,7 +27,7 @@ module Zimbra
       array_of_hashes
     end
     
-    module_function :db_connection, :nicefy_resultset, :column_names
+    module_function :db_connection, :nicefy_resultset, :column_names, :array_to_in_clause
     
   end
   

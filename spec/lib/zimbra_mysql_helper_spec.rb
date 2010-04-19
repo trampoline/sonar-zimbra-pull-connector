@@ -106,4 +106,37 @@ describe Zimbra::MySqlHelper do
     
   end
 
+  describe "array_to_in_clause" do
+    before(:each) do
+      @array = ['cheese', 'fish', 'donkeys']
+    end
+    
+    it "should return a string" do
+      Zimbra::MySqlHelper.array_to_in_clause( @array ).should be_a_kind_of(String)
+    end
+    
+    describe "returned string" do  
+      before(:each) do  
+        @r = Zimbra::MySqlHelper.array_to_in_clause( @array )
+      end
+      
+      it "should be a comma-separated list" do
+        @r.scan(',').size.should == 2
+      end
+      
+      it "should have one element for each array element" do
+        @r.split(',').size.should == @array.size
+      end
+      
+      it "should encase each element in single quotes" do
+        @r.split(',').each do |element|
+          element[0].should == 39
+          element[element.size - 1].should == 39
+        end
+      end
+      
+    end
+    
+  end
+  
 end
