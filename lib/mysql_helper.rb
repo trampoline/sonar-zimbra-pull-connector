@@ -12,8 +12,9 @@ module Zimbra
       resultset.fetch_fields.map{ |f| f.name }
     end
     
-    def array_to_in_clause( array )
-      array.map{ |m| "'#{m.gsub(/\\/, '\&\&').gsub(/'/, "''")}'" }.join(',')
+    def array_to_in_clause( array, quote=true )
+      array = array.map{ |m| "'#{m.gsub(/\\/, '\&\&').gsub(/'/, "''")}'" } if quote
+      array.join(',')
     end
     
     
