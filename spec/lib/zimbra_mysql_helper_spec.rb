@@ -79,4 +79,31 @@ describe Zimbra::MySqlHelper do
     
   end
   
+  describe "nicefy_resultset" do
+    before(:each) do
+      @mock_resultset = mock("resultset")
+      @row1 = {'field1'=>'r1_value1', 'field2'=>'r1_value2'}
+      @row2 = {'field1'=>'r2_value1', 'field2'=>'r2_value2'}
+      
+      @mock_resultset.stub!(:each_hash).and_yield( @row2 )
+    end
+        
+    it "should return one element for each row" do
+      Zimbra::MySqlHelper.nicefy_resultset(@mock_resultset).should == [@row2]
+    end
+    
+    describe "each element" do
+      it "should have a key for each field name" do
+        Zimbra::MySqlHelper.nicefy_resultset(@mock_resultset)[0].keys.should==["field1","field2"]
+      end
+      
+      it "should have the correct value for each field" do
+        rows = Zimbra::MySqlHelper.nicefy_resultset(@mock_resultset)
+        rows[0]["field1"].should == "r2_value1"
+        rows[0]["field2"].should == "r2_value2"
+      end
+    end
+    
+  end
+
 end

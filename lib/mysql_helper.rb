@@ -15,8 +15,6 @@ module Zimbra
     # take a raw mysql resultset and make it into an array of hashes so we can do things like
     # results[12]['id']
     def nicefy_resultset( resultset )
-      columns = column_names( resultset )
-      
       array_of_hashes = []
       resultset.each_hash do |row_hash|
         array_of_hashes << row_hash
