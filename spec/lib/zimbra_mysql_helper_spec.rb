@@ -135,6 +135,12 @@ describe Zimbra::MySqlHelper do
         end
       end
       
+      it "should escape any single quotes in each string" do
+        @array = ["brian.o'flaherty@thing.ie"]
+        @r = Zimbra::MySqlHelper.array_to_in_clause( @array )
+        @r.scan("'").size.should == 4
+      end
+      
     end
     
   end

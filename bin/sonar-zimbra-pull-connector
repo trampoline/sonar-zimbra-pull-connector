@@ -5,7 +5,7 @@ require 'mysql'
 require 'optparse'
 require 'time'
 
-require 'zimbra'
+require 'sonar-zimbra-pull-connector'
 
 OPTIONS = {
   :host => "localhost",
@@ -18,13 +18,7 @@ OPTIONS = {
   :include => ""
 }
 
-FOLDER_NAMES_WE_WANT = [ 
-  "Inbox",
-  "Sent",
-  "Sent Messages"   # for mac clients
-]
-FOLDER_TYPE = 1
-MAIL_TYPE = 5
+
 
 ARGV.options do |opts|
 
@@ -42,7 +36,7 @@ ARGV.options do |opts|
   opts.on("-p", "--port=number", String,
           "Port for the zimbra db connection",
           "Default: #{OPTIONS[:port]}") { |h| OPTIONS[:port] = h }
-  opts.on("-w", "--password=name", String,
+  opts.on("-w", "--password=pwd", String,
           "Password for the zimbra db",
           "Default: #{OPTIONS[:password]}") { |h| OPTIONS[:password] = h }
   opts.on("-s", "--socket=path", String,
@@ -156,11 +150,13 @@ end
 ######################################
 
 begin
-  dbh = Mysql.real_connect(OPTIONS[:host], OPTIONS[:username], OPTIONS[:password], nil, OPTIONS[:port].to_i, OPTIONS[:socket])
+  dbc = Zimbra::MySqlHelper.db_connection( OPTIONS )
   
-  volumes = get_zimbra_volumes( dbh )
+  include_addresses = OPTIONS[:include].split(",")
+  exclude_addresses = OPTIONS[:exclude].split(",")
   
-  users = get_users(dbh)
+  volumes = Zimbra.get_volumes( dbc )
+  users = Zimbra.get_users(dbc, include_addresses, exclude_addresses )
   
   min_date = nil
   min_date_log = ""
