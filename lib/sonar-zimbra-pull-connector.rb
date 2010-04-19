@@ -19,7 +19,6 @@ module Zimbra
     include_clause = (include.empty?) ? nil : "comment IN ( #{::Zimbra::MySqlHelper.array_to_in_clause( include )} )"
     
     all_accounts = get_user_accounts( db, include_clause, exclude_clause )
-    ::Zimbra::MySqlHelper.nicefy_resultset(all_accounts )
   end
 
 private 
@@ -27,8 +26,9 @@ private
   def get_user_accounts( db, include_clause, exclude_clause )
     where = ['id > 0', include_clause, exclude_clause].compact.join(" AND ")
     
-    db.query( "SELECT id, group_id, comment FROM zimbra.mailbox WHERE #{where} ORDER BY comment" )
+    accounts = db.query( "SELECT id, group_id, comment FROM zimbra.mailbox WHERE #{where} ORDER BY comment" )
+    ::Zimbra::MySqlHelper.nicefy_resultset(accounts )
   end
   
-  module_function :get_volumes, :get_users
+  module_function :get_volumes, :get_users, :get_user_accounts
 end
