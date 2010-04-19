@@ -42,6 +42,41 @@ describe Zimbra::MySqlHelper do
       
     end
     
+    it "should return the result of Mysql.real_connect" do
+      Mysql.stub!(:real_connect).and_return( :foo=>'bar' )
+      Zimbra::MySqlHelper.db_connection( {} ).should == {:foo=>'bar'}
+    end
+    
+      
+  end
+  
+  describe "column_names" do
+    before(:each) do
+      @mock_field_1 = mock('field_1')
+      @mock_field_2 = mock('field_2')
+      @mock_field_1.stub!(:name).and_return("field 1")
+      @mock_field_2.stub!(:name).and_return("field 2")
+      @mock_fields = [@mock_field_1, @mock_field_2]
+      
+      @resultset = mock("resultset")
+      @resultset.stub!(:fetch_fields).and_return( @mock_fields )
+    end
+    
+    it "should return an array of field names as strings" do
+      columns = Zimbra::MySqlHelper.column_names(@resultset)
+      columns.should respond_to(:[])
+      columns.each do |s|
+        s.should be_a_kind_of(String)
+      end
+    end
+    
+    describe "returned array" do
+      it "should be in the same order as the given resultset" do
+        columns = Zimbra::MySqlHelper.column_names(@resultset)
+        columns.should == [ 'field 1', 'field 2' ]
+      end
+    end
+    
   end
   
 end
