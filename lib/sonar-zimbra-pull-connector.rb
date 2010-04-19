@@ -15,17 +15,16 @@ module Zimbra
   
   
   def get_users( db, include=[], exclude=[] )
-    exclude_clause = (exclude.empty?) ? nil : "comment NOT IN ( #{::Zimbra::MySqlHelper.array_to_in_clause( exclude )} ) "     
-    include_clause = (include.empty?) ? nil : "comment IN ( #{::Zimbra::MySqlHelper.array_to_in_clause( include )} ) "
+    exclude_clause = (exclude.empty?) ? nil : "comment NOT IN ( #{::Zimbra::MySqlHelper.array_to_in_clause( exclude )} )"     
+    include_clause = (include.empty?) ? nil : "comment IN ( #{::Zimbra::MySqlHelper.array_to_in_clause( include )} )"
     
-    all_accounts = get_user_accounts( include_clause, exclude_clause )
-    log "got #{all_accounts.num_rows} accounts"
+    all_accounts = get_user_accounts( db, include_clause, exclude_clause )
     ::Zimbra::MySqlHelper.nicefy_resultset(all_accounts )
   end
 
 private 
 
-  def get_user_accounts( include_clause, exclude_clause )
+  def get_user_accounts( db, include_clause, exclude_clause )
     where = ['id > 0', include_clause, exclude_clause].compact.join(" AND ")
     
     db.query( "SELECT id, group_id, comment FROM zimbra.mailbox WHERE #{where} ORDER BY comment" )
