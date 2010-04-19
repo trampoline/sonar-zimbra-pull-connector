@@ -128,17 +128,42 @@ describe Zimbra::MySqlHelper do
         @r.split(',').size.should == @array.size
       end
       
-      it "should encase each element in single quotes" do
-        @r.split(',').each do |element|
-          element[0].should == 39
-          element[element.size - 1].should == 39
+      describe "when quote is true" do
+         before(:each) do  
+          @r = Zimbra::MySqlHelper.array_to_in_clause( @array, true )
+        end
+        
+        it "should encase each element in single quotes " do
+          @r.split(',').each do |element|
+            element[0].should == 39
+            element[element.size - 1].should == 39
+          end
+        end
+        
+        it "should escape any single quotes in each string" do
+          @array = ["brian.o'flaherty@thing.ie"]
+          @r = Zimbra::MySqlHelper.array_to_in_clause( @array )
+          @r.scan("'").size.should == 4
         end
       end
       
-      it "should escape any single quotes in each string" do
-        @array = ["brian.o'flaherty@thing.ie"]
-        @r = Zimbra::MySqlHelper.array_to_in_clause( @array )
-        @r.scan("'").size.should == 4
+      describe "when quote is false" do
+        before(:each) do  
+          @r = Zimbra::MySqlHelper.array_to_in_clause( @array, false )
+        end
+        
+        it "should NOT encase each element in single quotes " do
+          @r.split(',').each do |element|
+            element[0].should_not == 39
+            element[element.size - 1].should_not == 39
+          end
+        end
+        
+        it "should escape any single quotes in each string" do
+          @array = ["brian.o'flaherty@thing.ie"]
+          @r = Zimbra::MySqlHelper.array_to_in_clause( @array, false )
+          @r.scan("'").size.should == 1
+        end
       end
       
     end
