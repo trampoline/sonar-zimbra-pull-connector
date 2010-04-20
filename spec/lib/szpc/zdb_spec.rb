@@ -1,5 +1,4 @@
-
-require File.join(File.dirname(__FILE__), '..', 'spec_helper' )
+require File.join( File.dirname(__FILE__), '..', '..', 'spec_helper' )
 
 describe Zimbra::ZDB do
     before(:each) do

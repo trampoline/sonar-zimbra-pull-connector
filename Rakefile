@@ -5,11 +5,11 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "sonar-zimbra-pull-connector"
-    gem.summary = %Q{TODO: one-line summary of your gem}
+    gem.summary = %Q{Provides a facility to dump mails from a Zimbra server}
     gem.description = %Q{TODO: longer description of your gem}
     gem.email = "apdavidson@gmail.com"
-    gem.homepage = "http://github.com/aldavidson/sonar-zimbra-pull-connector"
-    gem.authors = ["Al"]
+    gem.homepage = "http://github.com/trampoline/sonar-zimbra-pull-connector"
+    gem.authors = ["Al Davidson"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

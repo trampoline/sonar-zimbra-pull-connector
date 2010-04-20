@@ -1,4 +1,4 @@
-require 'zdb'
+require File.join(File.dirname(__FILE__), 'zdb' ) 
 
 module Zimbra
   module Folders

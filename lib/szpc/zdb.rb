@@ -1,3 +1,5 @@
+require File.join(File.dirname(__FILE__), 'mysql_helper' ) 
+
 module Zimbra
   module ZDB
     def execute( db, sql )

@@ -5,7 +5,7 @@ require 'mysql'
 require 'optparse'
 require 'time'
 
-require 'sonar-zimbra-pull-connector'
+require File.join(File.dirname(__FILE__), '..', 'lib', 'sonar-zimbra-pull-connector' )
 
 OPTIONS = {
   :host => "localhost",
@@ -15,15 +15,15 @@ OPTIONS = {
   :socket => "/opt/zimbra/db/mysql.sock",
   :min_date => nil,
   :exclude => "",
-  :include => ""
+  :include => "",
+  :target_dir => nil,
+  :headers_only => 'n'
 }
-
-
 
 ARGV.options do |opts|
 
   script_name = File.basename( $0 )
-  opts.banner = "Usage: #{script_name} [ -h <host> ] [ -u <username> ] [ -w <password> ] [ -p <port> ] [ -s <socket> ] [ -t <min date>] [ -x <email addresses to exclude>] [ -i <email addresses to include>]"
+  opts.banner = "Usage: #{script_name} [ -h <host> ] [ -u <username> ] [ -w <password> ] [ -p <port> ] [ -s <socket> ] [ -t <min date>] [ -x <email addresses to exclude>] [ -i <email addresses to include>] [ -d <target directory>]"
   opts.banner += "\n\nIf you do not specify -i or -x, it will attempt to retrieve emails for all accounts"
   opts.separator ""
 
@@ -51,26 +51,50 @@ ARGV.options do |opts|
   opts.on("-i", "--include=comma_delimited_email_addresses", String,
           "Comma-delimited list of email addresses to include",
           "Default: #{OPTIONS[:include]}") { |h| OPTIONS[:include] = h }
+	  
+  opts.on("-d", "--target-dir=path", String,
+          "Path to an output directory. If given, all matching rfc822 files will be copied to this directory.",
+	  "If not given, the filenames of matching rfc822 files will be output to STDOUT.",
+          "Default: #{OPTIONS[:target_dir]}") { |h| OPTIONS[:include] = h }
+  opts.on("-o", "--headers-only=<y|n>", String,
+          "Ignored unless -d|--target-dir is given.",
+	  "If y, all body content and subject lines will be stripped from rfc822 files in the target directory.",
+	  "If n, rfc822 files will be copied to the target directory as-is.",
+          "Default: #{OPTIONS[:headers_only]}") { |h| OPTIONS[:headers_only] = h.downcase unless h.blank? }
+
   opts.parse!
 end
 
+def process_mail( mail, target_dir, headers_only )
+  if target_dir.blank?
+    STDOUT << mail['absolute_path'] << "\n" }
+  else
+    if headers_only
+      content = Zimbra::Mail.headers( mail['absolute_path'] )
+      target_path = File.join(target_dir, mail['relative_path'])
+      log "mail #{mail['relative_path']} headers are #{content.size} bytes long, writing to #{target_path}"
+      File.open( target_path, 'w' ){ |f| f.write(content) }
+    else
+      # log "copying #{mail['absolute_path']} to #{target_dir}"
+      FileUtils.cp( mail['absolute_path'], target_dir, :preserve=>true, :verbose=>true )
+    end
+  end
+end
 
-
-
-
-
-def sync_mails( db, user, volumes, min_date = nil)
-  mailbox_name = "mboxgroup#{user['id']}"
+def sync_mails( db, user, volumes, min_date = nil, target_dir, headers_only)
+  mailbox_name = Zimbra::Users.mailbox_name( user['id'] )
   
   begin
     folders = Zimbra::Folders.get_folders( db, mailbox_name )
     
     log "got #{folders.length} folders to look in" 
   
-    mails = get_mails_from_folders( db, mailbox_name, folders, volumes, min_date )
+    mails = Zimbra::Folders.get_mails_from_folders( db, mailbox_name, folders, volumes, min_date )
     log "got #{mails.length} mails for #{user['comment']}"
     
-    mails.each{ |mail| STDOUT << mail['absolute_path'] << "\n" }
+    mails.each{ |mail| 
+      process_mail( mail, target_dir, headers_only )
+    }
     
   rescue
     log "couldn't get mails for user #{user['id']} - #{user['comment']}"
@@ -95,8 +119,8 @@ begin
   include_addresses = OPTIONS[:include].split(",")
   exclude_addresses = OPTIONS[:exclude].split(",")
   
-  volumes = Zimbra.get_volumes( dbc )
-  users = Zimbra.get_users(dbc, include_addresses, exclude_addresses )
+  volumes = Zimbra::ZDB.get_volumes( dbc )
+  users = Zimbra::ZDB.get_users(dbc, include_addresses, exclude_addresses )
   
   min_date = nil
   min_date_log = ""
@@ -113,7 +137,7 @@ begin
   
   users.each do |user|
     log "extracting mails for #{user['comment']} #{min_date_log} "
-    sync_mails( dbh, user, volumes, min_date )
+    sync_mails( dbc, user, volumes, min_date, OPTIONS[:target_dir], OPTIONS[:headers_only] )
     log ""
   end
     
@@ -123,7 +147,7 @@ rescue Mysql::Error => e
   puts "Error SQLSTATE: #{e.sqlstate}" if e.respond_to?("sqlstate")
 ensure
   # must always ensure that we close the db connection
-  dbh.close() if dbh
+  dbc.close() if dbc
 end
 
 
