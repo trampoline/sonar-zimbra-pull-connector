@@ -16,7 +16,7 @@ module Zimbra
     end
     
     def get_mails_from_folders( db, mailbox_name, folder_ids, volumes, min_date = nil )
-      rows = ::Zimbra::ZDB.get_mails_from_folders( db, mailbox_name, folder_ids, volumes, min_date = nil )
+      rows = ::Zimbra::ZDB.get_mails_from_folders( db, mailbox_name, folder_ids, volumes, min_date )
       rows.each{ |r| r['relative_path'] = get_relative_path( r['mailbox_id'], r['id'], r['mod_content'] ) }
       rows.each{ |r| r['absolute_path'] = File.join( volumes.select{ |v| v['id'] == r['volume_id'] }[0]['path'], r['relative_path'] )  }
     end

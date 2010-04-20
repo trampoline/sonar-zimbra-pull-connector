@@ -10,7 +10,7 @@ module Zimbra
       sql = <<-SQL
         SELECT id, size, volume_id, mailbox_id, mod_content, date, '' AS relative_path , '' AS absolute_path
         FROM #{mailbox_name}.mail_item 
-        WHERE type = #{MAIL_TYPE} 
+        WHERE type = #{::Zimbra::Folders::TYPES[:MAIL]} 
           AND folder_id IN (#{folder_ids.join(', ')} )
       SQL
       unless min_date.nil?

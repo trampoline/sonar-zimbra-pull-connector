@@ -2,7 +2,7 @@ module Zimbra
   module Mail
   
     def headers( content )
-      content.split("\n\n").first
+      content.split(/\r\n\r\n|\n\n/).first + "\r\n\r\n"
     end
     
     def strip_subject(content)
@@ -15,7 +15,8 @@ module Zimbra
       # OR
       #   end of string
       # /im = case insensitive and multiline (ie '.' will match newline)
-      re = /(^subject:).*?(?=\n[^:\z\n\s]+:|\n\n|\z)/im
+      # NOTE - rfc822 is very explicit about line endings being CRLF ( == \r\n)!
+      re = /(^subject:).*?(?=\n[^:\z\n\s]+:|\n\n|\r\n\r\n|\z)/im
       content.gsub(re, '\1')
     end
     

@@ -16,9 +16,18 @@ describe Zimbra::Mail do
     describe "returned content" do
       it "should be truncated at the first double newline" do
         content = sample_mail( 'email_1.in' )
-        Zimbra::Mail.headers(content).should_not match( /\n\n.*/ )
+        Zimbra::Mail.headers(content).should_not match( /\r\n\r\n.+/ )
       end
     end
+    
+    describe "when content has windows line breaks" do
+      it "should still strip out body content" do
+        content = sample_mail( 'mail_with_windows_line_breaks.in' )
+        Zimbra::Mail.headers(content).should_not include( "Looks good" )
+      end
+      
+    end
+    
   end
   
   describe "strip_subject" do
@@ -29,13 +38,13 @@ describe Zimbra::Mail do
     
     it "should remove any subject line" do
       content = sample_mail( 'email_1.in' )
-      Zimbra::Mail.strip_subject(content).should_not match( /\nsubject:[^\n]+/i )
+      Zimbra::Mail.strip_subject(content).should_not match( /\nsubject:[^\r\n]+/i )
     end
     
     describe "when subject wraps onto multiple lines" do
       it "should remove any following continuation lines" do
         content = sample_mail( 'email_with_multiple_line_subject.in' )
-        Zimbra::Mail.strip_subject(content).should_not match( /\nsubject:[^\n]+/i )
+        Zimbra::Mail.strip_subject(content).should_not match( /\nsubject:[^\r\n]+/i )
         
         Zimbra::Mail.strip_subject(content).should_not include( "subject line 2" )
         Zimbra::Mail.strip_subject(content).should_not include( "subject line 3" )
@@ -54,15 +63,17 @@ describe Zimbra::Mail do
         "email_with_subject_error.rfc822",
         "huge_mail_1.in",
         "nonsense_email.in",
-        "text_html_mime_message.in"
+        "text_html_mime_message.in",
+        "mail_with_windows_line_breaks.in"
       ]
     end
     
     it "should work with each edge case" do
       @files.each do |file|
         content = sample_mail(file)
-        Zimbra::Mail.headers( content ).should_not match( /\n\n.*/ )
-        Zimbra::Mail.strip_subject(content).should_not match( /\nsubject:[^\n]+/i )
+        Zimbra::Mail.headers( content ).should_not match( /\n\n.+/ )
+        Zimbra::Mail.headers( content ).should_not match( /\r\n\r\n.+/ )
+        Zimbra::Mail.strip_subject(content).should_not match( /\r\nsubject:[^\r\n]+/i )
       end
     end
     

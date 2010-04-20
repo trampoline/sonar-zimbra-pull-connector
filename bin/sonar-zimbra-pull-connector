@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
-require 'mysql'
 require 'optparse'
 require 'time'
 
-require File.join(File.dirname(__FILE__), '..', 'lib', 'sonar-zimbra-pull-connector' )
+$: << File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'sonar-zimbra-pull-connector'
 
 OPTIONS = {
   :host => "localhost",
@@ -53,43 +53,53 @@ ARGV.options do |opts|
           "Default: #{OPTIONS[:include]}") { |h| OPTIONS[:include] = h }
 	  
   opts.on("-d", "--target-dir=path", String,
-          "Path to an output directory. If given, all matching rfc822 files will be copied to this directory.",
-	  "If not given, the filenames of matching rfc822 files will be output to STDOUT.",
-          "Default: #{OPTIONS[:target_dir]}") { |h| OPTIONS[:include] = h }
+          "Path to an output directory.",
+	  "If given, all matching rfc822 files will be copied to this directory.",
+	  "NOTE: Zimbra stores its mail files with very restrictive permissions.",
+	  "Therefore, if you supply the -d option, you MUST run this script as",
+	  "the zimbra user or root.",
+	  "If not given, the filenames of matching rfc822 files will be written to STDOUT.",
+          "Default: #{OPTIONS[:target_dir]}") { |h| OPTIONS[:target_dir] = h }
+
   opts.on("-o", "--headers-only=<y|n>", String,
           "Ignored unless -d|--target-dir is given.",
-	  "If y, all body content and subject lines will be stripped from rfc822 files in the target directory.",
+	  "If y, all body content and subject lines will be stripped from the outputted rfc822 files.",
 	  "If n, rfc822 files will be copied to the target directory as-is.",
-          "Default: #{OPTIONS[:headers_only]}") { |h| OPTIONS[:headers_only] = h.downcase unless h.blank? }
+          "Default: #{OPTIONS[:headers_only]}") { |h| OPTIONS[:headers_only] = h.downcase unless h.to_s.empty? }
 
   opts.parse!
 end
 
 def process_mail( mail, target_dir, headers_only )
-  if target_dir.blank?
-    STDOUT << mail['absolute_path'] << "\n" }
+  if target_dir.to_s.empty?
+    STDOUT << mail['absolute_path'] << "\n" 
   else
-    if headers_only
+    target_path = File.join(target_dir, mail['relative_path'])
+    FileUtils.mkdir_p( File.dirname(target_path) )
+
+    if headers_only.downcase == 'y'
       content = File.read(mail['absolute_path'])
+      s = "mail #{mail['relative_path']} is #{content.size} bytes long, "
+
       content = Zimbra::Mail.headers( content )
       content = Zimbra::Mail.strip_subject( content )
+      s = "#{s} stripped to #{content.size} bytes long, "
 
-      target_path = File.join(target_dir, mail['relative_path'])
-      log "mail #{mail['relative_path']} headers are #{content.size} bytes long, writing to #{target_path}"
+      log "#{s}\n\t writing to #{target_path}"
+
       File.open( target_path, 'w' ){ |f| f.write(content) }
     else
       # log "copying #{mail['absolute_path']} to #{target_dir}"
-      FileUtils.cp( mail['absolute_path'], target_dir, :preserve=>true, :verbose=>true )
+      FileUtils.cp( mail['absolute_path'], target_path, :preserve=>true, :verbose=>true )
     end
   end
 end
 
-def sync_mails( db, user, volumes, min_date = nil, target_dir, headers_only)
+def sync_mails( db, user, volumes, min_date = nil, target_dir=nil, headers_only="n")
   mailbox_name = Zimbra::Users.mailbox_name( user['id'] )
   
   begin
     folders = Zimbra::Folders.get_folders( db, mailbox_name )
-    
     log "got #{folders.length} folders to look in" 
   
     mails = Zimbra::Folders.get_mails_from_folders( db, mailbox_name, folders, volumes, min_date )
@@ -123,7 +133,7 @@ begin
   exclude_addresses = OPTIONS[:exclude].split(",")
   
   volumes = Zimbra::ZDB.get_volumes( dbc )
-  users = Zimbra::ZDB.get_users(dbc, include_addresses, exclude_addresses )
+  users = Zimbra::Users.get_users(dbc, include_addresses, exclude_addresses )
   
   min_date = nil
   min_date_log = ""
