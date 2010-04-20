@@ -23,9 +23,22 @@ OPTIONS = {
 ARGV.options do |opts|
 
   script_name = File.basename( $0 )
-  opts.banner = "Usage: #{script_name} [ -h <host> ] [ -u <username> ] [ -w <password> ] [ -p <port> ] [ -s <socket> ] [ -t <min date>] [ -x <email addresses to exclude>] [ -i <email addresses to include>] [ -d <target directory>]"
+
+  opts.banner = "\n\nSonar Zimbra Pull Connector"
+  opts.banner += "\n---------------------------\n\n"
+  opts.separator "\n"
+
+  opts.banner += "A simple script to export mails from a Zimbra server. This MUST be run on the zimbra server itself, as the zimbra user or root."
+  opts.banner += "\n\n\nYou Will Need"
+  opts.banner += "\n-------------"
+  opts.banner += "\n"
+  opts.banner += "\n1) Rubygems"
+  opts.banner += "\n2) The mysql gem (gem install mysql)"
+  opts.banner += "\n3) Your Zimbra server's Mysql root password (see http://wiki.zimbra.com/wiki/MySql_Password )"
+
+  opts.banner += "\n\nUsage: #{script_name} [ -h <host> ] [ -u <username> ] [ -w <password> ] [ -p <port> ] [ -s <socket> ] [ -t <min date>] [ -x <email addresses to exclude>] [ -i <email addresses to include>] [ -d <target directory>]"
   opts.banner += "\n\nIf you do not specify -i or -x, it will attempt to retrieve emails for all accounts"
-  opts.separator ""
+  opts.separator "\n"
 
   opts.on("-h", "--host=name", String,
           "Hostname of the zimbra db",
@@ -37,20 +50,20 @@ ARGV.options do |opts|
           "Port for the zimbra db connection",
           "Default: #{OPTIONS[:port]}") { |h| OPTIONS[:port] = h }
   opts.on("-w", "--password=pwd", String,
-          "Password for the zimbra db",
-          "Default: #{OPTIONS[:password]}") { |h| OPTIONS[:password] = h }
+          "Password for the zimbra db"
+          ) { |h| OPTIONS[:password] = h }
   opts.on("-s", "--socket=path", String,
           "Path to the MySQL socket",
           "Default: #{OPTIONS[:socket]}") { |h| OPTIONS[:socket] = h }
   opts.on("-t", "--min-date=date", String,
-          "Only get emails after this date",
-          "Default: #{OPTIONS[:min_date].to_s}") { |h| OPTIONS[:min_date] = h }
-  opts.on("-x", "--exclude=comma_delimited_email_addresses", String,
-          "Comma-delimited list of email addresses to exclude",
-          "Default: #{OPTIONS[:exclude]}") { |h| OPTIONS[:exclude] = h }
-  opts.on("-i", "--include=comma_delimited_email_addresses", String,
-          "Comma-delimited list of email addresses to include",
-          "Default: #{OPTIONS[:include]}") { |h| OPTIONS[:include] = h }
+          "Only get emails after this date"
+	  ) { |h| OPTIONS[:min_date] = h }
+  opts.on("-x", "--exclude=email_addresses", String,
+          "Comma-delimited list of email addresses to exclude"
+	  ) { |h| OPTIONS[:exclude] = h }
+  opts.on("-i", "--include=email_addresses", String,
+          "Comma-delimited list of email addresses to include"
+          ) { |h| OPTIONS[:include] = h }
 	  
   opts.on("-d", "--target-dir=path", String,
           "Path to an output directory.",
@@ -58,14 +71,36 @@ ARGV.options do |opts|
 	  "NOTE: Zimbra stores its mail files with very restrictive permissions.",
 	  "Therefore, if you supply the -d option, you MUST run this script as",
 	  "the zimbra user or root.",
-	  "If not given, the filenames of matching rfc822 files will be written to STDOUT.",
-          "Default: #{OPTIONS[:target_dir]}") { |h| OPTIONS[:target_dir] = h }
+	  "If not given, the filenames of matching rfc822 files will be written to STDOUT."
+	  ) { |h| OPTIONS[:target_dir] = h }
 
   opts.on("-o", "--headers-only=<y|n>", String,
           "Ignored unless -d|--target-dir is given.",
 	  "If y, all body content and subject lines will be stripped from the outputted rfc822 files.",
 	  "If n, rfc822 files will be copied to the target directory as-is.",
           "Default: #{OPTIONS[:headers_only]}") { |h| OPTIONS[:headers_only] = h.downcase unless h.to_s.empty? }
+
+  examples = <<-END
+  \n\n\nExamples:\n---------\n
+1) To export full mail bodies of all mails for test@some.com and joe@bloggs.com into /tmp/mail_dump/
+
+      ruby #{script_name} --password=(zimbra root mysql pwd) --include=test@some.com,joe@bloggs.com --target-dir=/tmp/mail_dump/
+
+2) To export just the headers of all mails for user test@some.com since 1st November 2009 into /tmp/mail_dump
+      
+      ruby #{script_name} --password=(zimbra root mysql pwd) --include=test@some.com --min-date=01-11-2009 --target-dir=/tmp/mail_dump/ --headers-only=y
+      
+   or, with more compact argument syntax:
+
+      ruby #{script_name} -w (zimbra root mysql pwd) -i test@some.com -t 01-11-2009 -d /tmp/mail_dump/ -o y
+  END
+
+  opts.separator ""
+  opts.banner += examples
+  opts.separator ""
+
+  opts.banner += "\n\nFull Parameter List"
+  opts.banner += "\n---------------------"
 
   opts.parse!
 end
