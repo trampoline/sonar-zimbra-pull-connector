@@ -70,7 +70,10 @@ def process_mail( mail, target_dir, headers_only )
     STDOUT << mail['absolute_path'] << "\n" }
   else
     if headers_only
-      content = Zimbra::Mail.headers( mail['absolute_path'] )
+      content = File.read(mail['absolute_path'])
+      content = Zimbra::Mail.headers( content )
+      content = Zimbra::Mail.strip_subject( content )
+
       target_path = File.join(target_dir, mail['relative_path'])
       log "mail #{mail['relative_path']} headers are #{content.size} bytes long, writing to #{target_path}"
       File.open( target_path, 'w' ){ |f| f.write(content) }

@@ -1,0 +1,153 @@
+From daniel.kwiecinski@gmail.com  Mon Jan  7 10:14:03 2008
+Return-Path: <daniel.kwiecinski@gmail.com>
+X-Original-To: lab@trampolinesystems.com
+Delivered-To: tramposys_appserv_mail@smtp.trampolinesystems.com
+Received: from barracuda.qmediastream.com (unknown [192.168.3.52])
+	by smtp.trampolinesystems.com (Postfix) with ESMTP id 99038174800C
+	for <lab@trampolinesystems.com>; Mon,  7 Jan 2008 10:14:03 +0000 (GMT)
+X-ASG-Debug-ID: 1199700840-08c9009a0000-XhWEZQ
+X-Barracuda-URL: http://192.168.3.52:8000/cgi-bin/mark.cgi
+Received: from rv-out-0910.google.com (localhost [127.0.0.1])
+	by barracuda.qmediastream.com (Spam Firewall) with ESMTP id EE9F716B9EC
+	for <lab@trampolinesystems.com>; Mon,  7 Jan 2008 10:14:01 +0000 (GMT)
+Received: from rv-out-0910.google.com (rv-out-0910.google.com [209.85.198.190]) by barracuda.qmediastream.com with ESMTP id tmywku0kpvT3CInB for <lab@trampolinesystems.com>; Mon, 07 Jan 2008 10:14:01 +0000 (GMT)
+Received: by rv-out-0910.google.com with SMTP id g11so5676512rvb.27
+        for <lab@trampolinesystems.com>; Mon, 07 Jan 2008 02:14:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=gamma;
+        h=domainkey-signature:received:received:message-id:date:from:sender:to:subject:in-reply-to:mime-version:content-type:references:x-google-sender-auth;
+        bh=lo/aIOuH93vCUCJa5PltWz28sDED94W400FKesFmQUM=;
+        b=iJGY9GQC8J7+NCrbE64B6RdhGKXbFn7aeCsTLizkPLyIjYlNq0qlRJt/gn5XjtDrUKdQdU8O8ggi1FWsCxHYyG1M6EGhbTuftz11v9kjXFcl8ww/ee+AzuvBlLkVcDrnlVfJhBdS+EPw+HjjNCx9jRvUcA+qMmwGMST0S4AmZ9k=
+DomainKey-Signature: a=rsa-sha1; c=nofws;
+        d=gmail.com; s=gamma;
+        h=message-id:date:from:sender:to:subject:in-reply-to:mime-version:content-type:references:x-google-sender-auth;
+        b=EfGHVZoWFnjH9NZLgYER0JWuArrb7SBbr1pzrOgTHy989pV3/igr+N0NIceSZMwjJk6VkmhjwuOLQ4djxZ1TBF/RZFGpLBcMLn2UgJWQCMS39ZtwUhR5FXSmY/qi74j8QCinsFX8lRCNnh0ziH7oRmsdVo0bV9hshEfvSI5zBPc=
+Received: by 10.141.34.12 with SMTP id m12mr2592253rvj.26.1199700840135;
+        Mon, 07 Jan 2008 02:14:00 -0800 (PST)
+Received: by 10.141.133.16 with HTTP; Mon, 7 Jan 2008 02:14:00 -0800 (PST)
+Message-ID: <b26676710801070214id560309ref3d0745bc90cffb@mail.gmail.com>
+Date: Mon, 7 Jan 2008 10:14:00 +0000
+From: "Daniel Kwiecinski" <daniel.kwiecinski@trampolinesystems.com>
+Sender: daniel.kwiecinski@gmail.com
+To: LAB <lab@trampolinesystems.com>
+X-ASG-Orig-Subj: Re: internal collaboration infrastructure
+Subject: Re: internal collaboration infrastructure
+In-Reply-To: <-1750008539570707074@unknownmsgid>
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_23535_26919153.1199700840090"
+References: <7B8C723E-BE20-4D86-A893-DDF6398DD698@trampolinesystems.com>
+	 <9b7804c40801041112v1a3ae7e9u899486ed15bb0a6d@mail.gmail.com>
+	 <37A83933-0E88-4469-911B-FCCD8D9BD1D6@trampolinesystems.com>
+	 <-1750008539570707074@unknownmsgid>
+X-Google-Sender-Auth: b752e0635605d88a
+X-Barracuda-Connect: rv-out-0910.google.com[209.85.198.190]
+X-Barracuda-Start-Time: 1199700841
+X-Barracuda-Bayes: INNOCENT GLOBAL 0.0000 1.0000 -2.0210
+X-Barracuda-Virus-Scanned: by Barracuda Spam Firewall at qmediastream.com
+X-Barracuda-Spam-Score: -2.02
+X-Barracuda-Spam-Status: No, SCORE=-2.02 using global scores of TAG_LEVEL=3.5 QUARANTINE_LEVEL=1000.0 KILL_LEVEL=7.0 tests=HTML_MESSAGE
+X-Barracuda-Spam-Report: Code version 3.1, rules version 3.1.38829
+	Rule breakdown below
+	 pts rule name              description
+	---- ---------------------- --------------------------------------------------
+	0.00 HTML_MESSAGE           BODY: HTML included in message
+
+------=_Part_23535_26919153.1199700840090
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+Gmail, both from office and home.
+
+2008/1/6, Adrian Jones <adrian.jones@trampolinesystems.com>:
+>
+> Replying to this email will send a message to everyone in the group
+> ---------------------------------------------------------------------
+>
+> Outlook, both from office and home.
+>
+> If I'm out and about, I use googlemail
+>
+> -----Original Message-----
+> From: Charles Armstrong [mailto:charles@trampolinesystems.com]
+> Sent: 04 January 2008 19:16
+> To: LAB
+> Subject: Re: internal collaboration infrastructure
+>
+> Replying to this email will send a message to everyone in the group
+> ---------------------------------------------------------------------
+>
+> >
+> > Quick count - how many people use what for email  ?
+>
+> apple mail
+>
+>
+> ---------------------------------------------------------------------
+> This email was written by Charles Armstrong - homepage at
+> http://www.trampolinesystems.com/people/charles
+> ---------------------------------------------------------------------
+> You received this email via the following group/s:
+> LAB - homepage at http://www.trampolinesystems.com/groups/lab
+> Visit the group homepage for more information and resources.
+> ---------------------------------------------------------------------
+> Communications powered by Trampoline Collaboration Engine
+> (www.trampolinesystems.com)
+>
+> No virus found in this incoming message.
+> Checked by AVG Free Edition.
+> Version: 7.5.516 / Virus Database: 269.17.13/1206 - Release Date:
+> 01/01/2008
+> 12:09
+>
+>
+> No virus found in this outgoing message.
+> Checked by AVG Free Edition.
+> Version: 7.5.516 / Virus Database: 269.17.13/1211 - Release Date:
+> 06/01/2008
+> 11:57
+>
+>
+>
+> ---------------------------------------------------------------------
+> This email was written by Adrian Jones - homepage at
+> http://www.trampolinesystems.com/people/adrian.jones
+> ---------------------------------------------------------------------
+> You received this email via the following group/s:
+> LAB - homepage at http://www.trampolinesystems.com/groups/lab
+> Visit the group homepage for more information and resources.
+> ---------------------------------------------------------------------
+> Communications powered by Trampoline Collaboration Engine (
+> www.trampolinesystems.com)
+>
+
+
+
+-- 
+Kind Regards,
+Daniel Kwiecinski
+
+m: 0 7852745975
+e:  daniel.kwiecinski@gmail.com
+
+------=_Part_23535_26919153.1199700840090
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+Gmail, both from office and home.<br><br><div><span class="gmail_quote">2008/1/6, Adrian Jones &lt;<a href="mailto:adrian.jones@trampolinesystems.com">adrian.jones@trampolinesystems.com</a>&gt;:</span><blockquote class="gmail_quote" style="border-left: 1px solid rgb(204, 204, 204); margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;">
+Replying to this email will send a message to everyone in the group<br>---------------------------------------------------------------------<br><br>Outlook, both from office and home.<br><br>If I&#39;m out and about, I use googlemail
+<br><br>-----Original Message-----<br>From: Charles Armstrong [mailto:<a href="mailto:charles@trampolinesystems.com">charles@trampolinesystems.com</a>]<br>Sent: 04 January 2008 19:16<br>To: LAB<br>Subject: Re: internal collaboration infrastructure
+<br><br>Replying to this email will send a message to everyone in the group<br>---------------------------------------------------------------------<br><br>&gt;<br>&gt; Quick count - how many people use what for email&nbsp;&nbsp;?<br>
+<br>apple mail<br><br><br>---------------------------------------------------------------------<br>This email was written by Charles Armstrong - homepage at<br><a href="http://www.trampolinesystems.com/people/charles">http://www.trampolinesystems.com/people/charles
+</a><br>---------------------------------------------------------------------<br>You received this email via the following group/s:<br>LAB - homepage at <a href="http://www.trampolinesystems.com/groups/lab">http://www.trampolinesystems.com/groups/lab
+</a><br>Visit the group homepage for more information and resources.<br>---------------------------------------------------------------------<br>Communications powered by Trampoline Collaboration Engine<br>(<a href="http://www.trampolinesystems.com">
+www.trampolinesystems.com</a>)<br><br>No virus found in this incoming message.<br>Checked by AVG Free Edition.<br>Version: 7.5.516 / Virus Database: 269.17.13/1206 - Release Date: 01/01/2008<br>12:09<br><br><br>No virus found in this outgoing message.
+<br>Checked by AVG Free Edition.<br>Version: 7.5.516 / Virus Database: 269.17.13/1211 - Release Date: 06/01/2008<br>11:57<br><br><br><br>---------------------------------------------------------------------<br>This email was written by Adrian Jones - homepage at 
+<a href="http://www.trampolinesystems.com/people/adrian.jones">http://www.trampolinesystems.com/people/adrian.jones</a><br>---------------------------------------------------------------------<br>You received this email via the following group/s:
+<br>LAB - homepage at <a href="http://www.trampolinesystems.com/groups/lab">http://www.trampolinesystems.com/groups/lab</a><br>Visit the group homepage for more information and resources.<br>---------------------------------------------------------------------
+<br>Communications powered by Trampoline Collaboration Engine (<a href="http://www.trampolinesystems.com">www.trampolinesystems.com</a>)<br></blockquote></div><br><br clear="all"><br>-- <br>Kind Regards, <br>Daniel Kwiecinski
+<br><br>m: 0 7852745975<br>e:&nbsp;&nbsp;<a href="mailto:daniel.kwiecinski@gmail.com">daniel.kwiecinski@gmail.com</a>
+
+------=_Part_23535_26919153.1199700840090--

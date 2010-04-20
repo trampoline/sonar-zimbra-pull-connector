@@ -1,0 +1,92 @@
+Return-Path: charles@trampolinesystems.com
+Received: from stetind.trampolinesystems.com (LHLO
+ stetind.trampolinesystems.com) (192.168.6.45) by
+ stetind.trampolinesystems.com with LMTP; Wed, 15 Oct 2008 16:36:16 +0100
+ (BST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by stetind.trampolinesystems.com (Postfix) with ESMTP id F2944A20037
+	for <craig@trampolinesystems.com>; Wed, 15 Oct 2008 16:36:15 +0100 (BST)
+X-Virus-Scanned: amavisd-new at 
+X-Spam-Flag: NO
+X-Spam-Score: -2.532
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.532 tagged_above=-10 required=2 tests=[AWL=0.066,
+	BAYES_00=-2.599, HTML_MESSAGE=0.001]
+Received: from stetind.trampolinesystems.com ([127.0.0.1])
+	by localhost (stetind.trampolinesystems.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id HSTBVqr6id8u for <craig@trampolinesystems.com>;
+	Wed, 15 Oct 2008 16:35:39 +0100 (BST)
+Received: from [192.168.2.30] (tramp-adsl.demon.co.uk [62.49.191.129])
+	by stetind.trampolinesystems.com (Postfix) with ESMTP id 3748BA2002A
+	for <craig@trampolinesystems.com>; Wed, 15 Oct 2008 16:35:34 +0100 (BST)
+Message-Id: <46A7B236-ED32-48D4-8852-12AD85D51A7F@trampolinesystems.com>
+From: Charles Armstrong <charles@trampolinesystems.com>
+To: CRAIG MCMILLAN <craig@trampolinesystems.com>
+Content-Type: multipart/alternative; boundary=Apple-Mail-50-964593968
+Mime-Version: 1.0 (Apple Message framework v929.2)
+Subject: iCal event invitation: ?BOARD MEETING
+X-Mail-Calendar-Part: Yes
+Date: Wed, 15 Oct 2008 16:35:29 +0100
+X-Mailer: Apple Mail (2.929.2)
+
+
+--Apple-Mail-50-964593968
+Content-Type: text/plain;
+	charset=US-ASCII;
+	format=flowed;
+	delsp=yes
+Content-Transfer-Encoding: 7bit
+
+Charles Armstrong has invited you to the iCal event: ?BOARD MEETING,  
+scheduled for 28 October 2008 at 17:00 (Europe/London). To accept or  
+decline this invitation, click the link below.
+--Apple-Mail-50-964593968
+Content-Type: multipart/mixed;
+	boundary=Apple-Mail-51-964593969
+
+
+--Apple-Mail-51-964593969
+Content-Type: text/html;
+	charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+
+<html><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; "><div><div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "><font face="Helvetica" size="3" style="font: 12.0px Helvetica">Charles Armstrong has invited you to the iCal event: ?BOARD MEETING, scheduled for 28 October 2008 at 17:00 (Europe/London). To accept or decline this invitation, click the link below.</font></div></div></body></html>
+--Apple-Mail-51-964593969
+Content-Disposition: attachment;
+	filename=iCal-20081015-163527.ics
+Content-Type: text/calendar;
+	x-unix-mode=0644;
+	name="iCal-20081015-163527.ics"
+Content-Transfer-Encoding: quoted-printable
+
+BEGIN:VCALENDAR=0D=0APRODID:-//Apple=20Inc.//iCal=203.0//EN=0D=0A=
+CALSCALE:GREGORIAN=0D=0AVERSION:2.0=0D=0AMETHOD:REQUEST=0D=0A=
+BEGIN:VTIMEZONE=0D=0ATZID:Europe/London=0D=0ABEGIN:DAYLIGHT=0D=0A=
+TZOFFSETFROM:+0000=0D=0ATZOFFSETTO:+0100=0D=0ADTSTART:19810329T010000=0D=0A=
+RRULE:FREQ=3DYEARLY;BYMONTH=3D3;BYDAY=3D-1SU=0D=0ATZNAME:BST=0D=0A=
+END:DAYLIGHT=0D=0ABEGIN:STANDARD=0D=0ATZOFFSETFROM:+0100=0D=0A=
+TZOFFSETTO:+0000=0D=0ADTSTART:19961027T020000=0D=0A=
+RRULE:FREQ=3DYEARLY;BYMONTH=3D10;BYDAY=3D-1SU=0D=0ATZNAME:GMT=0D=0A=
+END:STANDARD=0D=0AEND:VTIMEZONE=0D=0ABEGIN:VEVENT=0D=0ASEQUENCE:3=0D=0A=
+DTSTART;TZID=3DEurope/London:20081028T170000=0D=0ADURATION:PT1H=0D=0A=
+TRANSP:OPAQUE=0D=0AUID:D30D099C-43EA-438A-AF29-BAD43C228140=0D=0A=
+ORGANIZER;CN=3D"Charles=20=
+Armstrong":mailto:charles@trampolinesystems.com=0D=0A=
+DTSTAMP:20081015T153524Z=0D=0ASUMMARY:?BOARD=20MEETING=0D=0A=
+ATTENDEE;CN=3D"CRAIG=20=
+MCMILLAN";CUTYPE=3DINDIVIDUAL;PARTSTAT=3DNEEDS-ACTION;ROL=0D=0A=20=
+E=3DREQ-PARTICIPANT;RSVP=3DTRUE:mailto:craig@trampolinesystems.com=0D=0A=
+ATTENDEE;CN=3D"Charles=20=
+Armstrong";PARTSTAT=3DACCEPTED:mailto:charles@trampol=0D=0A=20=
+inesystems.com=0D=0ACREATED:20081015T153511Z=0D=0AEND:VEVENT=0D=0A=
+END:VCALENDAR=0D=0A=
+
+--Apple-Mail-51-964593969
+Content-Type: text/html;
+	charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+
+<html><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; "><div><div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; "></div></div></body></html>
+--Apple-Mail-51-964593969--
+
+--Apple-Mail-50-964593968--
