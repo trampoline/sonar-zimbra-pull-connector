@@ -11,6 +11,10 @@ begin
     gem.homepage = "http://github.com/trampoline/sonar-zimbra-pull-connector"
     gem.authors = ["Al Davidson"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.add_dependency "mysql", ">=2.8.1"
+    gem.bindir "bin"
+    gem.executables "sonar-zimbra-pull-connector"
+    gem.version "0.0.1"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

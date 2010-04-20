@@ -7,7 +7,7 @@ module Zimbra
     
     def strip_subject(content)
       # "Subject:" followed by anything NON-GREEDY
-      # with a positive look-ahead assertion that it is followed by
+      # with a positive look-ahead assertion (== non-capturing match) that it is followed by
       # EITHER
       #   newline then anything except end-of-string, another newline, or whitespace, then a colon (i.e. another header)
       # OR
