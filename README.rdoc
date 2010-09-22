@@ -2,7 +2,7 @@
 
 a script to extract email headers from mailboxes on a zimbra server
 
-no body content is kept, and subject lines are removed from the headers
+both body and subject lines are removed from the headers [ unless an explicit request is made to keep content ]
 
  ./bin/sonar-zimbra-pull-connector --help
 

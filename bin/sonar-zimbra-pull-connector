@@ -17,7 +17,7 @@ OPTIONS = {
   :exclude => "",
   :include => "",
   :target_dir => nil,
-  :headers_only => 'n'
+  :headers_only => 'y'
 }
 
 ARGV.options do |opts|
