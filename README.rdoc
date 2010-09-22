@@ -1,6 +1,10 @@
 = sonar-zimbra-pull-connector
 
-Description goes here.
+a script to extract email headers from mailboxes on a zimbra server
+
+no body content is kept, and subject lines are removed from the headers
+
+ ./bin/sonar-zimbra-pull-connector --help
 
 == Note on Patches/Pull Requests
  
