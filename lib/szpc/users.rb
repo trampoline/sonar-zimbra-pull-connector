@@ -9,11 +9,15 @@ module Zimbra
       all_accounts = ::Zimbra::ZDB.get_user_accounts( db, include_clause, exclude_clause )
     end
 
-    def mailbox_name( user_id )
-      "mboxgroup#{user_id}"
+    def mailbox_group( user )
+      "mboxgroup#{user['group_id']}"
+    end
+
+    def mailbox_id( user)
+      "#{user['id']}"
     end
     
-    module_function :get_users, :mailbox_name
+    module_function :get_users, :mailbox_group, :mailbox_id
   end
 
 end

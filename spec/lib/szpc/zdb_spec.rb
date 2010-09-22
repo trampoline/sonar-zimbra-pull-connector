@@ -11,12 +11,12 @@ describe Zimbra::ZDB do
       Zimbra::MySqlHelper.stub!(:nicefy_resultset).and_return( [] )
       Zimbra::MySqlHelper.should_receive( :array_to_in_clause ).with(['folder1', 'folder2'], true).and_return( "'foo'")
       
-      Zimbra::ZDB.get_folder_ids( @mock_dbc, 'mailbox', ['folder1', 'folder2'] )
+      Zimbra::ZDB.get_folder_ids( @mock_dbc, {}, ['folder1', 'folder2'] )
     end
     
     it "should return just the ids of the folders" do
       Zimbra::MySqlHelper.stub!(:nicefy_resultset).and_return( [ {'id'=>'row1_id', 'field'=>'value'}, {'id'=>'row2_id', 'field'=>'value2'} ] )
-      Zimbra::ZDB.get_folder_ids( @mock_dbc, 'mailbox', ['folder1', 'folder2'] ).should == ['row1_id', 'row2_id']
+      Zimbra::ZDB.get_folder_ids( @mock_dbc, {}, ['folder1', 'folder2'] ).should == ['row1_id', 'row2_id']
     end
     
   end

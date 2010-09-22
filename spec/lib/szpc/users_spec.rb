@@ -41,14 +41,14 @@ describe Zimbra::Users do
   
   
   describe "mailbox_name" do
-    it "should return a string" do
-      Zimbra::Users.mailbox_name( "test" ).should be_a_kind_of(String)
+    it "should return the mailboxgroup db name" do
+      Zimbra::Users.mailbox_group( {'id'=>110, 'group_id'=>10, 'comment'=>"foo@bar.com"} ).should ==("mboxgroup10")
     end
-    
-    describe "returned string" do
-      it "should be 'mboxgroup' followed by the user id" do
-        Zimbra::Users.mailbox_name( "test" ).should == 'mboxgrouptest'
-      end
+  end
+
+  describe "mailbox_id" do
+    it "should return the mailbox_id as a string" do
+      Zimbra::Users.mailbox_id( {'id'=>110, 'group_id'=>10, 'comment'=>'foo@bar.com'}).should == "110"
     end
   end
 end

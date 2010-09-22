@@ -9,14 +9,14 @@ module Zimbra
     ]
     TYPES = { :FOLDER => 1, :MAIL => 5 }
     
-    def get_folders( db, mailbox_name, folder_names=FOLDER_NAMES_WE_WANT )
-      folder_ids = ::Zimbra::ZDB.get_folder_ids( db, mailbox_name, folder_names )
+    def get_folders( db, user, folder_names=FOLDER_NAMES_WE_WANT )
+      folder_ids = ::Zimbra::ZDB.get_folder_ids( db, user, folder_names )
       
-      get_folders_under( db, mailbox_name, folder_ids )
+      get_folders_under( db, user, folder_ids )
     end
     
-    def get_mails_from_folders( db, mailbox_name, folder_ids, volumes, min_date = nil )
-      rows = ::Zimbra::ZDB.get_mails_from_folders( db, mailbox_name, folder_ids, volumes, min_date )
+    def get_mails_from_folders( db, user, folder_ids, volumes, min_date = nil )
+      rows = ::Zimbra::ZDB.get_mails_from_folders( db, user, folder_ids, volumes, min_date )
       rows.each{ |r| r['relative_path'] = get_relative_path( r['mailbox_id'], r['id'], r['mod_content'] ) }
       rows.each{ |r| r['absolute_path'] = File.join( volumes.select{ |v| v['id'] == r['volume_id'] }[0]['path'], r['relative_path'] )  }
     end
@@ -35,13 +35,13 @@ module Zimbra
 
   private 
     
-    def get_folders_under( db, mailbox_name, folder_ids )
-      rows = ::Zimbra::ZDB.get_folders_under( db, mailbox_name, folder_ids )
+    def get_folders_under( db, user, folder_ids )
+      rows = ::Zimbra::ZDB.get_folders_under( db, user, folder_ids )
       return folder_ids if rows.length == 0
       
       new_ids = rows.map{ |r| r['id'] }
       
-      folder_ids += get_folders_under( db, mailbox_name, new_ids )
+      folder_ids += get_folders_under( db, user, new_ids )
       folder_ids
     end
     

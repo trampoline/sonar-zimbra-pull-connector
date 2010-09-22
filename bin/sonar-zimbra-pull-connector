@@ -131,13 +131,13 @@ def process_mail( mail, target_dir, headers_only )
 end
 
 def sync_mails( db, user, volumes, min_date = nil, target_dir=nil, headers_only="n")
-  mailbox_name = Zimbra::Users.mailbox_name( user['id'] )
+#  mailbox_name = Zimbra::Users.mailbox_name( user['id'] )
   
   begin
-    folders = Zimbra::Folders.get_folders( db, mailbox_name )
+    folders = Zimbra::Folders.get_folders( db, user )
     log "got #{folders.length} folders to look in" 
   
-    mails = Zimbra::Folders.get_mails_from_folders( db, mailbox_name, folders, volumes, min_date )
+    mails = Zimbra::Folders.get_mails_from_folders( db, user, folders, volumes, min_date )
     log "got #{mails.length} mails for #{user['comment']}"
     
     mails.each{ |mail| 
